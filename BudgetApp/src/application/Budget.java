@@ -10,9 +10,7 @@ public class Budget {
 	double totalBalance;
 	ArrayList<BudgetItem> budgetItems;
 	Set<BudgetAlert> alerts;
-	
-	// test for git
-	
+		
 	public void addItem(BudgetItem item) {
 		this.budgetItems.add(item);
 	}
