@@ -10,6 +10,13 @@ public class Budget {
 	double totalBalance;
 	ArrayList<BudgetItem> budgetItems;
 	Set<BudgetAlert> alerts;
+	ArrayList<Category> categories;
+
+    public Budget(double totalBalance, ArrayList<BudgetItem> budgetItems, Set<BudgetAlert> alerts) {
+        this.totalBalance = totalBalance;
+        this.budgetItems = budgetItems;
+        this.alerts = alerts;
+    }
 		
 	public void addItem(BudgetItem item) {
 		this.budgetItems.add(item);
