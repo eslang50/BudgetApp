@@ -45,8 +45,48 @@ public class MonthPage extends Stage {
 			TableColumn<BudgetItem, String> descriptionCol = new TableColumn<>("Description");
 			descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
 			
+			descriptionCol.setCellFactory(column -> {
+			    return new TableCell<BudgetItem, String>() {
+			        @Override
+			        protected void updateItem(String item, boolean empty) {
+			            super.updateItem(item, empty);
+			            if (item == null || empty) {
+			                setText(null);
+			            } else {
+			                setText(item);
+			                if (getTableRow().getItem() instanceof BudgetItem && ((BudgetItem) getTableRow().getItem()).getDescription().equals("Total")) {
+			                    setStyle("-fx-font-weight: bold;");
+			                } else {
+			                    setStyle("");
+			                }
+			            }
+			        }
+			    };
+			});
+			
 			TableColumn<BudgetItem, Double> amountCol = new TableColumn<>("Amount");
 			amountCol.setCellValueFactory(new PropertyValueFactory<>("amount"));
+			
+			amountCol.setCellFactory(column -> {
+			    return new TableCell<BudgetItem, Double>() {
+			        @Override
+			        protected void updateItem(Double item, boolean empty) {
+			            super.updateItem(item, empty);
+			            if (item == null || empty) {
+			                setText(null);
+			            } else {
+			                setText(String.format("%.2f", item));
+			                if (getTableRow().getItem() instanceof BudgetItem && ((BudgetItem) getTableRow().getItem()).getDescription().equals("Total")) {
+			                    setStyle("-fx-font-weight: bold;");
+			                } else {
+			                    setStyle("");
+			                }
+			            }
+			        }
+			    };
+			});
+
+
 			
 			TableColumn<BudgetItem, String> dateCol = new TableColumn<>("Date");
 			dateCol.setCellValueFactory(cellData -> {
@@ -75,6 +115,9 @@ public class MonthPage extends Stage {
 	                return new ReadOnlyStringWrapper(""); 
 	            }
 	        });	  
+	        
+
+
 	        
 			tableView.getColumns().addAll(descriptionCol, amountCol, dateCol, categoryColumn);
 			tableView.setItems(FXCollections.observableArrayList());
