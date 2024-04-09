@@ -6,16 +6,29 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Set;
 
+import javafx.collections.ObservableList;
+
 public class Budget {
 	double totalBalance;
-	ArrayList<BudgetItem> budgetItems;
-	Set<BudgetAlert> alerts;
-	ArrayList<Category> categories;
+	ObservableList<BudgetItem> budgetItems;
+	Set<Category> categories;
 
-    public Budget(double totalBalance, ArrayList<BudgetItem> budgetItems, Set<BudgetAlert> alerts) {
+    public Budget(double totalBalance, ObservableList<BudgetItem> budgetItems, Set<Category> categories) {
         this.totalBalance = totalBalance;
         this.budgetItems = budgetItems;
-        this.alerts = alerts;
+        this.categories = categories;
+    }
+    
+    public Set<Category> getCategories() {
+    	return this.categories;
+    }
+    
+    public void addCategory(Category category) {
+        this.categories.add(category);
+    }
+
+    public ObservableList<BudgetItem> getBudgetItems() {
+    	return this.budgetItems;
     }
 		
 	public void addItem(BudgetItem item) {
@@ -35,14 +48,6 @@ public class Budget {
         }
     }
 	
-    public void addAlert(BudgetAlert alert) {
-        this.alerts.add(alert);
-    }
-
-    public void deleteAlert(BudgetAlert alert) {
-        this.alerts.remove(alert);
-    }
-    
     public double calcBalance() {
         double totalAmount = 0;
         for (BudgetItem item : budgetItems) {
