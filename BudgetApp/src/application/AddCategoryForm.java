@@ -26,9 +26,9 @@ public class AddCategoryForm extends Stage {
 			
 			submitButton.setOnAction(event -> {
 				String categoryName = categoryInput.getText();
-				
-				budget.getCategories().add(new Category(categoryName));
-				
+				if(!categoryName.isBlank()) {
+					budget.getCategories().add(new Category(categoryName));
+				}
 				addCategoryStage.close();
 			});
 			

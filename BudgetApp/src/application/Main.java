@@ -1,17 +1,11 @@
 package application;
 	
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -25,20 +19,11 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -56,24 +41,12 @@ public class Main extends Application {
 			Budget budget = new Budget(0, budgetItems, categories);
 			
 			initData(budget);
-			
-//			LocalDateTime currentDateTime = LocalDateTime.now();
-//	        int currentMonth = currentDateTime.getMonthValue();
-//	        Budget currentMonthBudget;
-//	        budgetItems.setAll(
-//	            budget.getBudgetItems().stream()
-//	                .filter(item -> {
-//	                    LocalDateTime itemDateTime = LocalDateTime.ofInstant(item.getDate().toInstant(), ZoneId.systemDefault());
-//	                    return itemDateTime.getMonthValue() == currentMonth;
-//	                })
-//	                .collect(Collectors.toList())
-//	        );
 	        
 			BorderPane root = new BorderPane();
 			
 	        Text totalBalanceLabel = new Text("Total Balance: $" + budget.calcBalance());
             totalBalanceLabel.setText("Total Balance: $" + String.format("%.2f", budget.calcBalance()));
-	        Font font = Font.font("Verdana", FontWeight.BOLD, 30);
+	        Font font = Font.font("Arial", FontWeight.BOLD, 30);
 
 	        totalBalanceLabel.setFont(font);
 	        
@@ -85,6 +58,7 @@ public class Main extends Application {
 	            double amount = cellData.getValue().getAmount();
 	            return new ReadOnlyObjectWrapper<Double>(amount);
 	        });
+	        
 	        TableColumn<BudgetItem, String> dateColumn = new TableColumn<>("Date");
 	        dateColumn.setCellValueFactory(cellData -> {
 	            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
@@ -190,7 +164,7 @@ public class Main extends Application {
 	    for (int i = 0; i < 50; i++) {
 	        double amount = Math.round((Math.random() * 90 + 10) * 100.0) / 100.0;
 
-	        String[] descriptions = {"Dinner", "Movie tickets", "Clothes", "Groceries", "Concert tickets", "Books", "Electronics", "Gifts"};
+	        String[] descriptions = {"MBTA", "Uber", "Burgers", "Sushi", "Groceries", "Concert tickets", "Flights", "Amazon", "Rent"};
 	        String description = descriptions[(int) (Math.random() * descriptions.length)];
 
 	        LocalDateTime currentDateTime = LocalDateTime.now();
@@ -199,10 +173,30 @@ public class Main extends Application {
 	        LocalDateTime randomDateTime = LocalDateTime.of(currentDateTime.getYear(), currentDateTime.getMonth().minus(randomMonth), randomDay, 0, 0);
 	        Date date = Date.from(randomDateTime.atZone(ZoneId.systemDefault()).toInstant());
 
-	        Category[] categoriesArray = budget.getCategories().toArray(new Category[0]);
-	        Category randomCategory = categoriesArray[(int) (Math.random() * categoriesArray.length)];
-
-	        Expense expense = new Expense(description, amount, date, randomCategory);
+	        Category category = new Category("");
+	        switch (description) {
+	        case "MBTA":
+	        case "Flights":
+	        case "Uber":
+	        	category = new Category("Transportation");
+	        	break;
+	        case "Burgers":
+	        case "Sushi":
+	        case "Groceries":
+	        	category = new Category("Food");
+	        	break;
+	        case "Concert tickets":
+	        	category = new Category("Entertainment");
+	        	break;
+	        case "Amazon":
+	        	category = new Category("Shopping");
+	        	break;
+	        case "Rent":
+	        	category = new Category("Housing");
+	        	break;
+	        }
+	        
+	        Expense expense = new Expense(description, amount, date, category);
 	        budget.addItem(expense);
 	        
 	        if(i % 10 == 0) {

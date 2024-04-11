@@ -39,15 +39,6 @@ public class Budget {
 		this.budgetItems.remove(item);
 	}
 	
-	public void editItem(BudgetItem oldItem, BudgetItem newItem) {
-        int index = budgetItems.indexOf(oldItem);
-        if (index != -1) {
-            budgetItems.set(index, newItem);
-        } else {
-            System.out.println("Item not found. Cannot edit.");
-        }
-    }
-	
     public double calcBalance() {
         double totalAmount = 0;
         for (BudgetItem item : budgetItems) {
@@ -68,16 +59,5 @@ public class Budget {
         return filteredItems;
     }
     
-    public BudgetItem findMaxExpense() {
-        Comparator<BudgetItem> comparator = Comparator.comparingDouble(BudgetItem::getAmount);
-
-    	return Collections.max(budgetItems, comparator);
-    }
-    
-    public BudgetItem findMinExpense() {
-        Comparator<BudgetItem> comparator = Comparator.comparingDouble(BudgetItem::getAmount);
-
-    	return Collections.min(budgetItems, comparator);
-    }
 	
 }
