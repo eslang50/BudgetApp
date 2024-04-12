@@ -86,8 +86,6 @@ public class MonthPage extends Stage {
 			    };
 			});
 
-
-			
 			TableColumn<BudgetItem, String> dateCol = new TableColumn<>("Date");
 			dateCol.setCellValueFactory(cellData -> {
 	            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
@@ -116,9 +114,6 @@ public class MonthPage extends Stage {
 	            }
 	        });	  
 	        
-
-
-	        
 			tableView.getColumns().addAll(descriptionCol, amountCol, dateCol, categoryColumn);
 			tableView.setItems(FXCollections.observableArrayList());
 	        tableView.setPrefWidth(600);
@@ -141,13 +136,10 @@ public class MonthPage extends Stage {
 			    }
 			});
 			
-			//Layout 
 			VBox root = new VBox();
 			root.setSpacing(10);
 			root.setPadding(new Insets(10));
 			root.getChildren().addAll(monthComboBox, tableView, pieChart);
-			
-	
 			
 			Scene scene = new Scene(root,600,600);
 			monthStage.setScene(scene);
