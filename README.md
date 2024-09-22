@@ -5,7 +5,7 @@ Collaborators:
 - Ava Tsai
 - Maithili Wade
 
-- Designed using Java concepts like Classes, Inheritance/Polymorphism, Collections, Lists, and Sets, and JavaFx for UI implementation
+Designed using Java concepts Classes, Inheritance/Polymorphism, Collections, Lists, and Sets, and JavaFx for UI implementation
 
 # Features
 - Categorized expense tracking
